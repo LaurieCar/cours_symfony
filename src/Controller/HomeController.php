@@ -21,6 +21,7 @@ class HomeController extends AbstractController
         return new Response("Bienvenue ". $firstname);
     }
 
+    // EXERCICES CALCULATRICE
     #[Route('/home/addition/{nbr1}/{nbr2}', name: 'app_addition')]
     public function add(int $nbr1, int $nbr2): Response {
         $total = $nbr1 + $nbr2;
