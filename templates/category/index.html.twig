@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+<main class="container mx-auto p-4">
+    <h1 class="text-center font-semibold text-xl py-4">Liste des catégories</h1>
+    
+    <section class="flex flex-row flex-wrap justify-around gap-4">
+        {% if categories is null %}
+            <h2>Il n'y a pas de catégories en BDD</h2>
+        {% else %}
+            {% for category in categories %}
+                <div class="w-32 mb-4" style="width: 300px;">
+                    <a href="#" class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ category.label }}</h5>
+                        <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </section>
+</main>
+
+    
+{% endblock %}
