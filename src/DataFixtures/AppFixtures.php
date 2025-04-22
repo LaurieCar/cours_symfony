@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     public function __construct(
-        private readonly UserPasswordHasherInterface $hashPassword
+        private readonly UserPasswordHasherInterface $hasher
     )
     {}
     public function load(ObjectManager $manager): void
@@ -39,7 +39,7 @@ class AppFixtures extends Fixture
             $user->setFirstname($faker->firstName('male'|'female'))
                 ->setLastname($faker->lastName())
                 ->setEmail($faker->unique()->email())
-                ->setPassword($this->hashPassword->hashPassword($user, $faker->word(2)))
+                ->setPassword($this->hasher->hashPassword($user, $faker->word(2)))
                 ->setRoles(["ROLE_USER"]);
             // mettre en cache les users
             $manager->persist($user);
