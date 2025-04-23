@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -29,12 +30,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Length(
+        min: 8,
+        minMessage: "Le mot de passe est trop court",
+    )]
+    #[Assert\Regex(
+        pattern: "/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}/",
+        htmlPattern: "/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}/",
+        message: "Le mot de passe doit contenir au moins une minuscule, une majuscule et un nombre"
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\NotBlank(
+        message: "Le champ {{label}} doit être rempli"
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le prénom de l'utilisateur est trop petit",
+        maxMessage: "Le prénom de l'utilisateur est trop long",
+    )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\NotBlank(
+        message: "Le champ {{label}} doit être rempli"
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le nom de l'utilisateur est trop petit",
+        maxMessage: "Le nom de l'utilisateur est trop long",
+    )]
     private ?string $lastname = null;
 
     public function getId(): ?int
