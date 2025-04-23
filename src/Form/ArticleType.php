@@ -31,9 +31,6 @@ class ArticleType extends AbstractType
                 'class' => Category::class,
                 'multiple' => true,
             ])
-            ->add('save', SubmitType::class,[
-                'label' => 'Ajouter'
-                ])
         ;
     }
 

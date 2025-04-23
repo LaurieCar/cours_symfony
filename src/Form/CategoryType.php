@@ -20,9 +20,6 @@ class CategoryType extends AbstractType
                 ],
                 'label'=>'Saisir le nom de la categorie'
             ])
-            ->add('save', SubmitType::class,[
-                'label'=>'Enregistrer'
-            ])
         ;
     }
 

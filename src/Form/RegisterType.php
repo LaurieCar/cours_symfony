@@ -18,11 +18,10 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('plainPassword', RepeatedType::class, [
+            ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Password', 'hash_property_path' => 'password'],
+                'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
-                'mapped' => false,
                 ])
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
