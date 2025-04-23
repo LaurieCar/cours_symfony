@@ -5,7 +5,7 @@
 {% block body %}
 <main class="container mx-auto p-4">
     <h1 class="text-center font-semibold text-xl py-4">Liste des catégories</h1>
-    
+    <button type="button" class="bg-blue-400 rounded-xl p-3 ml-6 mb-8"><a href="{{ path('app_category_add') }}">Ajouter une catégorie</a></button>
     <section class="flex flex-row flex-wrap justify-around gap-4">
         {% if categories is null %}
             <h2>Il n'y a pas de catégories en BDD</h2>
@@ -20,6 +20,7 @@
             {% endfor %}
         {% endif %}
     </section>
+    
 </main>
 
     

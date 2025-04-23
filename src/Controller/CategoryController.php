@@ -38,7 +38,7 @@ final class CategoryController extends AbstractController
         $categoryForm = $this->createForm(CategoryType::class, $category);
         $categoryForm->handleRequest($request);
 
-        if($categoryForm->isSubmitted()) {
+        if($categoryForm->isSubmitted() && $categoryForm->isValid()) {
             $message = "";
             $type = "";
             try {

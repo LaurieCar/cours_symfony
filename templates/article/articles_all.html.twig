@@ -5,7 +5,7 @@
 {% block body %}
 <main class="container mx-auto p-4">
     <h1 class="text-center font-semibold text-xl py-4">Liste des articles</h1>
-    
+    <button type="button" class="bg-blue-400 rounded-xl p-3 ml-6 mb-8"><a href="{{ path('app_article_add') }}">Ajouter un article</a></button>
     <section class="flex flex-row flex-wrap justify-around gap-4 my-8">
         {% if articles is null %}
             <h2>Il n'y a pas d'articles en BDD</h2>
