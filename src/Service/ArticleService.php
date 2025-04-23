@@ -2,12 +2,15 @@
 
 namespace App\Service;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ArticleService
 {
     public function __construct(
-        private readonly ArticleRepository $articleRepository
+        private readonly ArticleRepository $articleRepository,
+        private readonly EntityManagerInterface $entityManager
     )
     {}
 
@@ -30,5 +33,23 @@ class ArticleService
         }
         // retourne la liste des articles
         return $articles;
+    }
+
+    public function saveArticle(Article $article) {
+        try {
+            // Test si l'article existe déjà
+            if($this->articleRepository->findOneBy([
+                "title"=>$article->getTitle(),
+                "content"=>$article->getContent()
+                ])) {
+                    throw new \Exception("L'article existe déjà");
+                }
+            // Ajouter l'article en BDD
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        return true;  
     }
 }
