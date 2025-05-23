@@ -67,11 +67,11 @@ jobs:
 
       - name: Start Symfony server
         run: |
-          php -S 127.0.0.1:8000 -t public &
+          php -S 127.0.0.1:8084 -t public &
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
           # start: php -S 127.0.0.1:8000 -t public
-          wait-on: 'http://127.0.0.1:8000'
+          wait-on: 'http://127.0.0.1:8084'
           wait-on-timeout: 60
