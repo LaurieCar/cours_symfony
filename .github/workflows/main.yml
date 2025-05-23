@@ -77,15 +77,36 @@ jobs:
           wait-on-timeout: 60
   
   deploy:
-    needs: Symfony-test
+    needs: Symfony-test  # attend que les tests passent
     runs-on: ubuntu-latest
     if: success()
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: 🔄 Cloner le code
+        uses: actions/checkout@v3
 
-      - name: Deploy to Vercel
+      - name: 🧰 Installer PHP + Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, intl, pdo_mysql, sodium
+          tools: composer
+
+      - name: 📦 Installer les dépendances Symfony
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: ⚡ Générer le cache et les fichiers env
         run: |
-          npm install -g vercel
-          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm
+          php bin/console cache:clear --env=prod
+          php bin/console cache:warmup --env=prod
+          php bin/console dump-env prod
+
+      - name: 📤 Déployer via FTP
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: ./
+          remoteDir: /chiengpt/laurie
+          options: "--delete"
