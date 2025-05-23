@@ -1,0 +1,27 @@
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+tests/
+phpunit.xml*
+
+# Node (si utilisé)
+node_modules/
+package*.json
+
+# Env dev
+.env.dev
+.env.test
+.env.*
+!/.env.local.php
+
+# Cache / logs (optionnel)
+var/
+!var/cache/
+!var/log/
+
+# Autres fichiers inutiles
+README.md
+composer.lock
