@@ -1,12 +1,12 @@
 describe('page home', () => {
   it('passes', () => {
-    cy.visit('https://127.0.0.1:8000/home')
+    cy.visit('http://127.0.0.1:8084/home')
   })
 })
 
 describe('page categorie', () => {
   it('passes', () => {
-    cy.visit('https://127.0.0.1:8000/categories')
+    cy.visit('http://127.0.0.1:8084/categories')
   })
 })
 
