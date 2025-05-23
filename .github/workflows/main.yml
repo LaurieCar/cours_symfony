@@ -93,8 +93,8 @@ jobs:
           tools: composer
 
       - name: 📦 Installer les dépendances Symfony
-        run: composer install --no-dev --optimize-autoloader
-
+        run: composer install --no-dev --optimize-autoloader --no-scripts
+        
       - name: ⚡ Générer le cache et les fichiers env
         run: |
           php bin/console cache:clear --env=prod
