@@ -75,3 +75,17 @@ jobs:
           # start: php -S 127.0.0.1:8000 -t public
           wait-on: 'http://127.0.0.1:8084'
           wait-on-timeout: 60
+  
+  deploy:
+    needs: Symfony-test
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        run: |
+          npm install -g vercel
+          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm
