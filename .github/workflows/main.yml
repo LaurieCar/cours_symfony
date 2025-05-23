@@ -11,6 +11,9 @@ jobs:
   Symfony-test:
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: mysql://root:root@127.0.0.1:3306/symfonyDb
+
     services:
       mysql:
         image: mysql:8.0
@@ -52,7 +55,7 @@ jobs:
           cp .env .env.test
           echo "APP_ENV=test" >> .env
           echo "APP_ENV=test" >> .env.test
-          echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/symfonyDb" >> .env.test
+          echo "DATABASE_URL=${{ env.DATABASE_URL }}" >> .env.test
 
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
@@ -66,13 +69,9 @@ jobs:
         run: |
           php -S 127.0.0.1:8000 -t public &
 
-      # - name: Run Cypress tests
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     start: php -S 127.0.0.1:8000 -t public
-      #     wait-on: 'http://127.0.0.1:8000'
-      #     wait-on-timeout: 60
-      - name: Run PHPUnit tests
-        env:
-          DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-        run: vendor/bin/phpunit
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: php -S 127.0.0.1:8000 -t public
+          wait-on: 'http://127.0.0.1:8000'
+          wait-on-timeout: 60
