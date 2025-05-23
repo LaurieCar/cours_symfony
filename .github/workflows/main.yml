@@ -3,9 +3,9 @@ name: Symfony 7 + Cypress E2E Tests
 on:
   workflow_dispatch:  # permet de le lancer manuellement
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   Symfony-test:
