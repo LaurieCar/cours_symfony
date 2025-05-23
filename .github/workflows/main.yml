@@ -114,5 +114,5 @@ jobs:
           user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: ./
-          remoteDir: /chiengpt/laurie
+          remoteDir: /public_html/laurie
           options: "--delete"
