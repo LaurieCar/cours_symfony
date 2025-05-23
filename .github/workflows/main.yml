@@ -72,6 +72,7 @@ jobs:
       #     start: php -S 127.0.0.1:8000 -t public
       #     wait-on: 'http://127.0.0.1:8000'
       #     wait-on-timeout: 60
-      env:
-        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-      run: vendor/bin/phpunit
+      - name: Run PHPUnit tests
+        env:
+          DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+        run: vendor/bin/phpunit
