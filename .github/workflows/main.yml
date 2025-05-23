@@ -94,6 +94,12 @@ jobs:
 
       - name: 📦 Installer les dépendances Symfony
         run: composer install --no-dev --optimize-autoloader --no-scripts
+
+      - name: Configurer .env.local pour prod
+        run: |
+          echo "APP_ENV=prod" > .env.local
+          echo "APP_DEBUG=0" >> .env.local
+          echo "DATABASE_URL=mysql://${{ secrets.PROD_DB_USER }}:${{ secrets.PROD_DB_PASS }}@${{ secrets.PROD_DB_HOST }}:3306/sapi2145_laurie" >> .env.local
         
       - name: ⚡ Générer le cache et les fichiers env
         run: |
